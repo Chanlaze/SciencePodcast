@@ -4,11 +4,14 @@ import json
 import re
 import subprocess
 import sys
+import urllib.request
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parent
 PLAYLIST = "https://www.youtube.com/playlist?list=PL0jaUPVBk3akYF-CYI6k6VY6j5do3XgHq"
+LIVE_FEED = "https://chanlaze.github.io/SciencePodcast/feed.xml"
 PART_PATTERN = re.compile(r"(20\d{2}-\d{2}-\d{2})\s+Part\s*([1-4])\b", re.I)
 
 
@@ -31,7 +34,15 @@ def main() -> None:
         date, part = match.group(1), int(match.group(2))
         shows.setdefault(date, {})[part] = entry
 
-    published = [p.stem.removeprefix("science-frontier-") for p in (ROOT / "podcasts").glob("science-frontier-*.mp3")]
+    with urllib.request.urlopen(LIVE_FEED, timeout=30) as response:
+        live_xml = ET.fromstring(response.read())
+    published = [
+        guid.text.removeprefix("science-frontier-")
+        for item in live_xml.find("channel").findall("item")
+        if (guid := item.find("guid")) is not None and guid.text
+    ]
+    if not published:
+        raise RuntimeError("The live podcast feed has no published episodes")
     newest = max(published, default="0000-00-00")
     new_shows = {date: parts for date, parts in sorted(shows.items()) if date > newest and set(parts) == {1, 2, 3, 4}}
     if not new_shows:
@@ -52,6 +63,9 @@ def main() -> None:
                     raise RuntimeError(f"Download failed for {date} Part {number}: {video_id}")
 
     subprocess.run([sys.executable, str(ROOT / "build_podcast.py")], check=True)
+    audio_bytes = sum(p.stat().st_size for p in (ROOT / "podcasts").glob("science-frontier-*.mp3"))
+    if audio_bytes > 900 * 1024 * 1024:
+        raise RuntimeError("Podcast audio is approaching GitHub Pages' 1 GB site limit; choose another GitHub hosting layout before publishing more episodes")
     summary = {
         date: [parts[number]["title"] for number in range(1, 5)]
         for date, parts in new_shows.items()
