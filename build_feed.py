@@ -16,11 +16,7 @@ BASE = "https://chanlaze.github.io/SciencePodcast"
 ITUNES = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 ATOM = "http://www.w3.org/2005/Atom"
 PODCAST = "https://podcastindex.org/namespace/1.0"
-EPISODE_TITLES = {
-    "2026-09-24": "漸凍症療法、腦演化、外星訊號與核子鐘",
-    "2026-09-17": "AI太空競賽、微型核電、量子傳送與細胞通訊",
-    "2026-09-10": "PISA、AI解數學、伽碼射線與量子引力",
-}
+EPISODE_TITLES = json.loads((ROOT / "episode_titles.json").read_text(encoding="utf-8"))
 ET.register_namespace("itunes", ITUNES)
 ET.register_namespace("atom", ATOM)
 ET.register_namespace("podcast", PODCAST)
@@ -60,13 +56,13 @@ def main():
     chapter_dir.mkdir(exist_ok=True)
     for audio in sorted((ROOT / "podcasts").glob("science-frontier-*.mp3"), reverse=True):
         date = audio.stem.removeprefix("science-frontier-")
-        info_files = sorted((ROOT / "parts").glob("[0-9][0-9][0-9]-*.info.json"))
+        info_files = sorted((ROOT / "parts").glob("*.info.json"))
         part_info = {}
         for path in info_files:
             if path.name.startswith("000-"):
                 continue
             data = json.loads(path.read_text(encoding="utf-8"))
-            match = re.search(r"(2026-\d{2}-\d{2})\s+Part\s*([1-4])", data["title"], re.I)
+            match = re.search(r"(20\d{2}-\d{2}-\d{2})\s+Part\s*([1-4])", data.get("title", ""), re.I)
             if match and match.group(1) == date:
                 part_info[int(match.group(2))] = data
         if set(part_info) != {1, 2, 3, 4}:

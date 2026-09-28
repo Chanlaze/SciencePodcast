@@ -2,6 +2,7 @@
 parts/
 podcasts/*.concat.txt
 podcasts/*.ffmetadata
+podcasts/.building-*.mp3
 podcasts/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].concat.txt
 podcasts/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].ffmetadata
 __pycache__/
