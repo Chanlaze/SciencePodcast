@@ -10,6 +10,8 @@ from email.utils import format_datetime
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+from build_podcast import mp3_chapter_count
+
 
 ROOT = Path(__file__).resolve().parent
 BASE = "https://chanlaze.github.io/SciencePodcast"
@@ -74,7 +76,7 @@ def main():
             raise ValueError(f"Cannot read duration for {audio}")
         hours, minutes, seconds = duration_match.groups()
         total_seconds = round(int(hours) * 3600 + int(minutes) * 60 + float(seconds))
-        if probe.stderr.count("Chapter #0:") != 4:
+        if mp3_chapter_count(audio) != 4:
             raise ValueError(f"Expected four MP3 chapters in {audio}")
 
         chapters = []
@@ -113,7 +115,7 @@ def main():
     ET.ElementTree(rss).write(ROOT / "feed.xml", encoding="utf-8", xml_declaration=True)
     page = '''<!doctype html><html lang="zh-HK"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>科學新知｜音頻版</title><style>body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;line-height:1.6;background:#0b1526;color:#f6e9b8}a{color:#f5c65f}header{text-align:center}img{width:180px;height:180px;border-radius:12px}article{padding:1rem 0;border-top:1px solid #59627a}audio{width:100%}</style><header><img src="cover.jpg" alt="科學新知"><h1>科學新知｜音頻版</h1><p>粵語科學新聞，每集四個章節。</p><p><a href="feed.xml">訂閱 Podcast RSS feed</a></p></header>''' + "\n".join(cards) + "</html>\n"
     (ROOT / "index.html").write_text(page, encoding="utf-8")
-    print("Built feed.xml, index.html, and three chapter files")
+    print(f"Built feed.xml, index.html, and {len(cards)} chapter files")
 
 
 if __name__ == "__main__":

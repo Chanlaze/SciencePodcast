@@ -1,0 +1,25 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Part 1: SpaceX星艦第14次發射大致成功。歐洲量子電腦技術首次於太空試驗運算。",
+      "url": "https://www.youtube.com/watch?v=uAdtXUQhplE"
+    },
+    {
+      "startTime": 1009.0,
+      "title": "Part 2: 美國RHIC實驗揭示宇宙開初未知的物質相變，會如何改變對宇宙的認知？",
+      "url": "https://www.youtube.com/watch?v=4uy5d4h6ORk"
+    },
+    {
+      "startTime": 2019.0,
+      "title": "Part 3: 除了Crispr Cas9基因編輯技術，還有沒有更新更快更精準的基因編輯？",
+      "url": "https://www.youtube.com/watch?v=BMH7eVYXZI8"
+    },
+    {
+      "startTime": 3004.0,
+      "title": "Part 4: 可以用針頭注射運入動物體內的電子儀器，協調老鼠前後肢運動，對未來醫學有何意義？",
+      "url": "https://www.youtube.com/watch?v=GubT8bPZ9W8"
+    }
+  ]
+}

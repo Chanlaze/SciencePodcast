@@ -18,6 +18,22 @@
     </image>
     <atom:link href="https://chanlaze.github.io/SciencePodcast/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>科學新知 2026-10-01｜星艦與太空量子運算、宇宙相變、基因編輯與注射電子儀器</title>
+      <description>1. SpaceX星艦第14次發射大致成功。歐洲量子電腦技術首次於太空試驗運算。 — https://www.youtube.com/watch?v=uAdtXUQhplE
+2. 美國RHIC實驗揭示宇宙開初未知的物質相變，會如何改變對宇宙的認知？ — https://www.youtube.com/watch?v=4uy5d4h6ORk
+3. 除了Crispr Cas9基因編輯技術，還有沒有更新更快更精準的基因編輯？ — https://www.youtube.com/watch?v=BMH7eVYXZI8
+4. 可以用針頭注射運入動物體內的電子儀器，協調老鼠前後肢運動，對未來醫學有何意義？ — https://www.youtube.com/watch?v=GubT8bPZ9W8</description>
+      <link>https://chanlaze.github.io/SciencePodcast/</link>
+      <guid isPermaLink="false">science-frontier-2026-10-01</guid>
+      <pubDate>Thu, 01 Oct 2026 12:00:00 +0800</pubDate>
+      <enclosure url="https://chanlaze.github.io/SciencePodcast/podcasts/science-frontier-2026-10-01.mp3" length="38812632" type="audio/mpeg" />
+      <itunes:author>Science Frontier (科學新知)</itunes:author>
+      <itunes:duration>3881</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <podcast:chapters url="https://chanlaze.github.io/SciencePodcast/chapters/2026-10-01.json" type="application/json+chapters" />
+    </item>
+    <item>
       <title>科學新知 2026-09-24｜漸凍症療法、腦演化、外星訊號與核子鐘</title>
       <description>1. 若霍金仍在生，他該會高興見到漸凍人症基因療法與Neuralink Voice技術面世。 — https://www.youtube.com/watch?v=WLoTjfYXetY
 2. 大腦原來從兩種神經系統合併演化？老鼠腦袋擁有了人腦細胞，結果會如何？ — https://www.youtube.com/watch?v=_iEKN70hzGg

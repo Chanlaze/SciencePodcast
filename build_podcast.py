@@ -18,6 +18,28 @@ def escaped(value: str) -> str:
     return value.replace("\\", "\\\\").replace("=", "\\=").replace(";", "\\;").replace("#", "\\#").replace("\n", "\\n")
 
 
+def mp3_chapter_count(path: Path) -> int:
+    """Count ID3v2.4 CHAP frames, which ffmpeg's MP3 probe does not display."""
+    with path.open("rb") as audio:
+        header = audio.read(10)
+        if header[:4] != b"ID3\x04":
+            return 0
+        tag_size = sum(byte << shift for byte, shift in zip(header[6:10], (21, 14, 7, 0)))
+        tag = audio.read(tag_size)
+    chapters = 0
+    offset = 0
+    while offset + 10 <= len(tag):
+        frame = tag[offset:offset + 10]
+        if not frame[:4].strip(b"\x00"):
+            break
+        size = sum(byte << shift for byte, shift in zip(frame[4:8], (21, 14, 7, 0)))
+        if size <= 0 or offset + 10 + size > len(tag):
+            return 0
+        chapters += frame[:4] == b"CHAP"
+        offset += 10 + size
+    return chapters
+
+
 def main() -> None:
     sys.path.insert(0, str(ROOT / ".tools"))
     import imageio_ffmpeg
@@ -61,8 +83,7 @@ def main() -> None:
         metadata.write_text("\n".join(lines) + "\n", encoding="utf-8")
         temp = OUTPUT / f".building-{date}.mp3"
         subprocess.run([ffmpeg, "-hide_banner", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat), "-i", str(metadata), "-map", "0:a:0", "-map_metadata", "1", "-map_chapters", "1", "-c:a", "libmp3lame", "-b:a", "80k", "-ac", "1", "-y", str(temp)], check=True)
-        probe = subprocess.run([ffmpeg, "-hide_banner", "-i", str(temp)], capture_output=True, text=True, encoding="utf-8", errors="replace")
-        if probe.stderr.count("Chapter #0:") != 4:
+        if mp3_chapter_count(temp) != 4:
             raise ValueError(f"{date}: encoded MP3 does not contain four chapters")
         os.replace(temp, target)
         built += 1
