@@ -1,0 +1,25 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Part 1: NASA懸賞向大眾徵集意見，解決月球漫步令太空人產生過量靜電問題。",
+      "url": "https://www.youtube.com/watch?v=MYkZqRTAH-I"
+    },
+    {
+      "startTime": 972.0,
+      "title": "Part 2: 水分是否氣態原來不單只因為溫度，在狹窄通道穿梭的水分子原來更像氣體。",
+      "url": "https://www.youtube.com/watch?v=Ve4up933QGU"
+    },
+    {
+      "startTime": 1931.0,
+      "title": "Part 3: AI出其不意地衝擊前沿數學研究，數學家何去何從？3維形狀如何密鋪空間問題正由AI攻克中。",
+      "url": "https://www.youtube.com/watch?v=nI_XEW1e_wg"
+    },
+    {
+      "startTime": 2991.0,
+      "title": "Part 4: 一棵西生菜竟可用基因改造方法生產出動物肌紅蛋白，以後食菜就等於食肉。",
+      "url": "https://www.youtube.com/watch?v=sBGitdPLl6Y"
+    }
+  ]
+}
