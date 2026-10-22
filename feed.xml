@@ -18,6 +18,22 @@
     </image>
     <atom:link href="https://chanlaze.github.io/SciencePodcast/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>科學新知 2026-10-22｜火衛星採樣、外星生命、高導熱材料與微塑膠</title>
+      <description>1. 日本率先派送探測器前往火星其中一個月亮上採石，2031年返回。 — https://www.youtube.com/watch?v=NNbmmdWT7l4
+2. 除了帶外星樣本回地球研究，我們還有簡單實驗印證外星生命痕跡嗎？ — https://www.youtube.com/watch?v=RGovNxFTG3c
+3. 發現比銅還要導熱快兩倍多的神奇材料，對電子工業是大好消息。 — https://www.youtube.com/watch?v=a7qj_nDDuN4
+4. 最新研究顯示，原本化學上不活躍的微塑膠，也有致癌風險，切記濾水。 — https://www.youtube.com/watch?v=gZ7oOhDMtBM</description>
+      <link>https://chanlaze.github.io/SciencePodcast/</link>
+      <guid isPermaLink="false">science-frontier-2026-10-22</guid>
+      <pubDate>Thu, 22 Oct 2026 12:00:00 +0800</pubDate>
+      <enclosure url="https://chanlaze.github.io/SciencePodcast/podcasts/science-frontier-2026-10-22.mp3" length="37136432" type="audio/mpeg" />
+      <itunes:author>Science Frontier (科學新知)</itunes:author>
+      <itunes:duration>3714</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <podcast:chapters url="https://chanlaze.github.io/SciencePodcast/chapters/2026-10-22.json" type="application/json+chapters" />
+    </item>
+    <item>
       <title>科學新知 2026-10-15｜月球靜電、水分子異態、AI數學與肌紅蛋白生菜</title>
       <description>1. NASA懸賞向大眾徵集意見，解決月球漫步令太空人產生過量靜電問題。 — https://www.youtube.com/watch?v=MYkZqRTAH-I
 2. 水分是否氣態原來不單只因為溫度，在狹窄通道穿梭的水分子原來更像氣體。 — https://www.youtube.com/watch?v=Ve4up933QGU
