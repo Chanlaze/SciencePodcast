@@ -63,7 +63,7 @@ def main() -> None:
                     raise RuntimeError(f"Download failed for {date} Part {number}: {video_id}")
 
     subprocess.run([sys.executable, str(ROOT / "build_podcast.py")], check=True)
-    audio_bytes = sum(p.stat().st_size for p in (ROOT / "podcasts").glob("science-frontier-*.mp3"))
+    audio_bytes = sum(p.stat().st_size for p in (ROOT / "podcasts").glob("science-*.mp3"))
     if audio_bytes > 900 * 1024 * 1024:
         raise RuntimeError("Podcast audio is approaching GitHub Pages' 1 GB site limit; choose another GitHub hosting layout before publishing more episodes")
     summary = {
