@@ -2,6 +2,7 @@
 
 import json
 import re
+import shutil
 import subprocess
 import sys
 import urllib.request
@@ -57,7 +58,13 @@ def main() -> None:
             if not video_id:
                 raise RuntimeError(f"Missing video ID for {date} Part {number}")
             template = str(ROOT / "parts" / f"{date}-part{number}-%(id)s.%(ext)s")
-            with yt_dlp.YoutubeDL({"format": "bestaudio", "outtmpl": template, "writeinfojson": True, "overwrites": False, "noplaylist": True, "quiet": True}) as ydl:
+            node = shutil.which("node")
+            options = {"format": "bestaudio/best", "outtmpl": template, "writeinfojson": True,
+                       "overwrites": False, "noplaylist": True, "quiet": True, "noprogress": True,
+                       "extractor_args": {"youtube": {"player_client": ["android"]}}}
+            if node:
+                options["js_runtimes"] = {"node": {"path": node}}
+            with yt_dlp.YoutubeDL(options) as ydl:
                 result = ydl.download([f"https://www.youtube.com/watch?v={video_id}"])
                 if result != 0:
                     raise RuntimeError(f"Download failed for {date} Part {number}: {video_id}")

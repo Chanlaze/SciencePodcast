@@ -40,6 +40,16 @@ def mp3_chapter_count(path: Path) -> int:
     return chapters
 
 
+def mp3_duration(path: Path, ffmpeg: str) -> float:
+    probe = subprocess.run([ffmpeg, "-hide_banner", "-i", str(path)],
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
+    match = re.search(r"Duration: (\d+):(\d+):(\d+\.\d+)", probe.stderr)
+    if not match:
+        raise ValueError(f"Cannot read MP3 duration: {path}")
+    hours, minutes, seconds = match.groups()
+    return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
+
+
 def main() -> None:
     sys.path.insert(0, str(ROOT / ".tools"))
     import imageio_ffmpeg
@@ -53,7 +63,7 @@ def main() -> None:
             continue
         date, part = match.group(1), int(match.group(2))
         audio_stem = info_path.name.removesuffix(".info.json")
-        files = [PARTS / f"{audio_stem}.{ext}" for ext in ("webm", "m4a", "opus", "mp3")]
+        files = [PARTS / f"{audio_stem}.{ext}" for ext in ("webm", "m4a", "opus", "mp3", "mp4")]
         audio = next((path for path in files if path.is_file()), None)
         if audio is None:
             continue
@@ -64,11 +74,12 @@ def main() -> None:
         if set(parts) != {1, 2, 3, 4}:
             continue
         target = OUTPUT / f"science-frontier-{date}.mp3"
-        if target.is_file() and target.stat().st_size > 0:
+        expected_duration = sum(float(parts[n][1]["duration"]) for n in range(1, 5))
+        if (target.is_file() and target.stat().st_size > 0
+                and mp3_chapter_count(target) == 4
+                and abs(mp3_duration(target, ffmpeg) - expected_duration) <= 5):
             continue
-        concat = OUTPUT / f"{date}.concat.txt"
         metadata = OUTPUT / f"{date}.ffmetadata"
-        concat.write_text("\n".join(f"file '{parts[n][0].as_posix()}'" for n in range(1, 5)) + "\n", encoding="utf-8")
         lines = [";FFMETADATA1", f"title={escaped('科學新知 ' + date)}", "artist=Science Frontier (科學新知)", f"album=科學新知", f"date={date}"]
         start = 0
         for number in range(1, 5):
@@ -82,9 +93,19 @@ def main() -> None:
             start = end
         metadata.write_text("\n".join(lines) + "\n", encoding="utf-8")
         temp = OUTPUT / f".building-{date}.mp3"
-        subprocess.run([ffmpeg, "-hide_banner", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(concat), "-i", str(metadata), "-map", "0:a:0", "-map_metadata", "1", "-map_chapters", "1", "-c:a", "libmp3lame", "-b:a", "80k", "-ac", "1", "-y", str(temp)], check=True)
+        inputs = [argument for number in range(1, 5) for argument in ("-i", str(parts[number][0]))]
+        result = subprocess.run([ffmpeg, "-hide_banner", "-loglevel", "error", *inputs,
+                                 "-i", str(metadata), "-filter_complex",
+                                 "[0:a:0][1:a:0][2:a:0][3:a:0]concat=n=4:v=0:a=1[a]",
+                                 "-map", "[a]", "-map_metadata", "4", "-map_chapters", "4",
+                                 "-c:a", "libmp3lame", "-b:a", "80k", "-ac", "1", "-y", str(temp)],
+                                capture_output=True, text=True, encoding="utf-8", errors="replace")
+        if result.returncode or result.stderr.strip():
+            raise RuntimeError(f"{date}: audio join failed: {result.stderr[-2000:]}")
         if mp3_chapter_count(temp) != 4:
             raise ValueError(f"{date}: encoded MP3 does not contain four chapters")
+        if abs(mp3_duration(temp, ffmpeg) - expected_duration) > 5:
+            raise ValueError(f"{date}: encoded MP3 duration does not match all four source parts")
         os.replace(temp, target)
         built += 1
         print(f"Created {target.name} ({target.stat().st_size / 1024**2:.1f} MiB)")

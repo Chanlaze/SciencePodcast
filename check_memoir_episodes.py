@@ -3,6 +3,7 @@
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -75,8 +76,11 @@ def main() -> None:
             raise RuntimeError(f"Missing Science Memoir video ID for {date}")
         stem = f"memoir-{date}-{video_id}"
         template = str(parts_dir / f"memoir-{date}-%(id)s.%(ext)s")
-        options = {"format": "bestaudio", "outtmpl": template, "writeinfojson": True,
-                   "overwrites": False, "noplaylist": True, "quiet": True, "noprogress": True}
+        options = {"format": "bestaudio/best", "outtmpl": template, "writeinfojson": True,
+                   "overwrites": False, "noplaylist": True, "quiet": True, "noprogress": True,
+                   "extractor_args": {"youtube": {"player_client": ["android"]}}}
+        if node := shutil.which("node"):
+            options["js_runtimes"] = {"node": {"path": node}}
         for attempt in range(3):
             try:
                 with yt_dlp.YoutubeDL(options) as ydl:
@@ -91,7 +95,7 @@ def main() -> None:
 
         info_path = parts_dir / f"{stem}.info.json"
         info = json.loads(info_path.read_text(encoding="utf-8"))
-        audio = next((parts_dir / f"{stem}.{ext}" for ext in ("webm", "m4a", "opus", "mp3")
+        audio = next((parts_dir / f"{stem}.{ext}" for ext in ("webm", "m4a", "opus", "mp3", "mp4")
                       if (parts_dir / f"{stem}.{ext}").is_file()), None)
         if audio is None:
             raise RuntimeError(f"Downloaded Science Memoir audio missing for {date}")
