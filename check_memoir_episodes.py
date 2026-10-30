@@ -49,6 +49,11 @@ def main() -> None:
     if channel is None:
         raise RuntimeError("The live podcast feed has no channel")
     published = {item.findtext("guid") for item in channel.findall("item")}
+    combined_dates = {
+        item.findtext("guid").removeprefix("science-frontier-")
+        for item in channel.findall("item")
+        if item.findtext("guid") and "science-combined-" in (item.find("enclosure").get("url", "") if item.find("enclosure") is not None else "")
+    }
 
     candidates = {}
     for entry in playlist["entries"]:
@@ -56,7 +61,7 @@ def main() -> None:
             continue
         title = entry.get("title") or ""
         date = episode_date(title)
-        if date and date >= START_DATE and f"science-memoir-{date}" not in published:
+        if date and date >= START_DATE and date not in combined_dates and f"science-memoir-{date}" not in published:
             if date in candidates and candidates[date].get("id") != entry.get("id"):
                 raise RuntimeError(f"Multiple Science Memoir videos are dated {date}; review before publishing")
             candidates[date] = entry
@@ -122,6 +127,7 @@ def main() -> None:
             print(f"Created {target.name} ({target.stat().st_size / 1024**2:.1f} MiB)")
         completed[date] = {"title": info["title"], "video": info["webpage_url"]}
 
+    subprocess.run([sys.executable, str(ROOT / "build_combined.py")], check=True)
     audio_bytes = sum(p.stat().st_size for p in output_dir.glob("science-*.mp3"))
     if audio_bytes > 900 * 1024 * 1024:
         raise RuntimeError("Podcast audio is approaching GitHub Pages' 1 GB site limit; review hosting before publishing")

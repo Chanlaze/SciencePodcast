@@ -18,33 +18,21 @@
     </image>
     <atom:link href="https://chanlaze.github.io/SciencePodcast/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>科學回憶錄 2026-10-29｜夏威夷人起源與丹尼索瓦人</title>
-      <description>從基因考證夏威夷人的起源。丹尼索瓦人到底是甚麼樣子？ — https://www.youtube.com/watch?v=FgTaiQtm5cs</description>
-      <link>https://chanlaze.github.io/SciencePodcast/</link>
-      <guid isPermaLink="false">science-memoir-2026-10-29</guid>
-      <pubDate>Thu, 29 Oct 2026 12:00:00 +0800</pubDate>
-      <enclosure url="https://chanlaze.github.io/SciencePodcast/podcasts/science-memoir-2026-10-29.mp3" length="10565016" type="audio/mpeg" />
-      <itunes:author>Science Frontier (科學新知)</itunes:author>
-      <itunes:duration>1056</itunes:duration>
-      <itunes:episodeType>full</itunes:episodeType>
-      <itunes:explicit>false</itunes:explicit>
-      <podcast:chapters url="https://chanlaze.github.io/SciencePodcast/chapters/memoir-2026-10-29.json" type="application/json+chapters" />
-    </item>
-    <item>
-      <title>科學新知 2026-10-29｜太空散熱、綠色白矮星、反物質鎖定與無藥控糖</title>
+      <title>科學新知與科學回憶錄 2026-10-29｜太空散熱、綠色白矮星、反物質鎖定與無藥控糖；夏威夷人起源與丹尼索瓦人</title>
       <description>1. 衛星AI及數據中心，如何在太空散熱原來大有學問。 — https://www.youtube.com/watch?v=9su-k5wjRVk
 2. 為何夜空中幾乎不見有綠色星星？新發現的綠色白矮星又來自甚麼原因？ — https://www.youtube.com/watch?v=Y0rpX-BC8e0
 3. 反物質鎖定技術能夠令反物質維持存在逾多月，更精確測量反物質特性變得可能。 — https://www.youtube.com/watch?v=SOkiQTzTMDw
-4. 發現控制血糖的奇怪方法，不用藥只用電路和催化劑就分解葡萄糖？! — https://www.youtube.com/watch?v=ETVt8nDCEcE</description>
+4. 發現控制血糖的奇怪方法，不用藥只用電路和催化劑就分解葡萄糖？! — https://www.youtube.com/watch?v=ETVt8nDCEcE
+從基因考證夏威夷人的起源。丹尼索瓦人到底是甚麼樣子？ — https://www.youtube.com/watch?v=FgTaiQtm5cs</description>
       <link>https://chanlaze.github.io/SciencePodcast/</link>
       <guid isPermaLink="false">science-frontier-2026-10-29</guid>
       <pubDate>Thu, 29 Oct 2026 12:00:00 +0800</pubDate>
-      <enclosure url="https://chanlaze.github.io/SciencePodcast/podcasts/science-frontier-2026-10-29.mp3" length="42106749" type="audio/mpeg" />
+      <enclosure url="https://chanlaze.github.io/SciencePodcast/podcasts/science-combined-2026-10-29.mp3" length="52671142" type="audio/mpeg" />
       <itunes:author>Science Frontier (科學新知)</itunes:author>
-      <itunes:duration>4211</itunes:duration>
+      <itunes:duration>5267</itunes:duration>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
-      <podcast:chapters url="https://chanlaze.github.io/SciencePodcast/chapters/2026-10-29.json" type="application/json+chapters" />
+      <podcast:chapters url="https://chanlaze.github.io/SciencePodcast/chapters/combined-2026-10-29.json" type="application/json+chapters" />
     </item>
     <item>
       <title>科學新知 2026-10-22｜火衛星採樣、外星生命、高導熱材料與微塑膠</title>

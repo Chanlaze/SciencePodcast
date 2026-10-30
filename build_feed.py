@@ -64,12 +64,18 @@ def main():
     cards = []
     chapter_dir = ROOT / "chapters"
     chapter_dir.mkdir(exist_ok=True)
+    combined_dates = {audio.stem.removeprefix("science-combined-")
+                      for audio in (ROOT / "podcasts").glob("science-combined-*.mp3")}
     audio_files = [(audio.stem.removeprefix("science-frontier-"), "frontier", audio)
                    for audio in (ROOT / "podcasts").glob("science-frontier-*.mp3")]
     audio_files += [(audio.stem.removeprefix("science-memoir-"), "memoir", audio)
                     for audio in memoir_audio]
+    audio_files = [(date, series, audio) for date, series, audio in audio_files
+                   if date not in combined_dates]
+    audio_files += [(audio.stem.removeprefix("science-combined-"), "combined", audio)
+                    for audio in (ROOT / "podcasts").glob("science-combined-*.mp3")]
     for date, series, audio in sorted(audio_files, reverse=True):
-        if series == "frontier":
+        if series in ("frontier", "combined"):
             part_info = {}
             for path in sorted((ROOT / "parts").glob("*.info.json")):
                 if path.name.startswith(("000-", "memoir-")):
@@ -80,7 +86,7 @@ def main():
                     part_info[int(match.group(2))] = data
             if set(part_info) != {1, 2, 3, 4}:
                 raise ValueError(f"Missing source part for {date}")
-        else:
+        if series in ("memoir", "combined"):
             info_files = list((ROOT / "parts").glob(f"memoir-{date}-*.info.json"))
             if len(info_files) != 1:
                 raise ValueError(f"Expected one Science Memoir source for {date}")
@@ -94,13 +100,13 @@ def main():
             raise ValueError(f"Cannot read duration for {audio}")
         hours, minutes, seconds = duration_match.groups()
         total_seconds = round(int(hours) * 3600 + int(minutes) * 60 + float(seconds))
-        expected_chapters = 4 if series == "frontier" else 1
+        expected_chapters = {"frontier": 4, "memoir": 1, "combined": 5}[series]
         if mp3_chapter_count(audio) != expected_chapters:
             raise ValueError(f"Expected {expected_chapters} MP3 chapters in {audio}")
 
         chapters = []
         details = []
-        if series == "frontier":
+        if series in ("frontier", "combined"):
             start = 0
             for number in range(1, 5):
                 data = part_info[number]
@@ -112,16 +118,24 @@ def main():
                 chapters.append({"startTime": start, "title": f"Part {number}: {short_topic}", "url": data["webpage_url"]})
                 details.append(f"{number}. {topic} — {data['webpage_url']}")
                 start += float(data["duration"])
-            chapter_file = chapter_dir / f"{date}.json"
-            title = f"科學新知 {date}｜{EPISODE_TITLES[date]}"
-            guid = f"science-frontier-{date}"
-        else:
+            if series == "frontier":
+                chapter_file = chapter_dir / f"{date}.json"
+                title = f"科學新知 {date}｜{EPISODE_TITLES[date]}"
+                guid = f"science-frontier-{date}"
+        if series in ("memoir", "combined"):
             topic = memoir_info["title"].split("科學回憶錄", 1)[-1].lstrip("：: -").split("|", 1)[0].strip()
-            chapters.append({"startTime": 0, "title": topic, "url": memoir_info["webpage_url"]})
+            memoir_start = start if series == "combined" else 0
+            chapters.append({"startTime": memoir_start, "title": "科學回憶錄：" + topic if series == "combined" else topic,
+                             "url": memoir_info["webpage_url"]})
             details.append(f"{topic} — {memoir_info['webpage_url']}")
-            chapter_file = chapter_dir / f"memoir-{date}.json"
-            title = f"科學回憶錄 {date}｜{EPISODE_TITLES['memoir-' + date]}"
-            guid = f"science-memoir-{date}"
+            if series == "memoir":
+                chapter_file = chapter_dir / f"memoir-{date}.json"
+                title = f"科學回憶錄 {date}｜{EPISODE_TITLES['memoir-' + date]}"
+                guid = f"science-memoir-{date}"
+            else:
+                chapter_file = chapter_dir / f"combined-{date}.json"
+                title = f"科學新知與科學回憶錄 {date}｜{EPISODE_TITLES[date]}；{EPISODE_TITLES['memoir-' + date]}"
+                guid = f"science-frontier-{date}"
         chapter_file.write_text(json.dumps({"version": "1.2.0", "chapters": chapters}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
         episode = ET.SubElement(channel, "item")
