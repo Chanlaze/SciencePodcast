@@ -134,7 +134,7 @@ def main():
                 guid = f"science-memoir-{date}"
             else:
                 chapter_file = chapter_dir / f"combined-{date}.json"
-                title = f"科學新知與科學回憶錄 {date}｜{EPISODE_TITLES[date]}；{EPISODE_TITLES['memoir-' + date]}"
+                title = f"科學新知與科學回憶錄 {date}｜{EPISODE_TITLES['combined-' + date]}"
                 guid = f"science-frontier-{date}"
         chapter_file.write_text(json.dumps({"version": "1.2.0", "chapters": chapters}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
