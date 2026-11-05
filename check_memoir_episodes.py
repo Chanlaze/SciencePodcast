@@ -131,7 +131,7 @@ def main() -> None:
     audio_bytes = sum(p.stat().st_size for p in output_dir.glob("science-*.mp3"))
     if audio_bytes > 900 * 1024 * 1024:
         raise RuntimeError("Podcast audio is approaching GitHub Pages' 1 GB site limit; review hosting before publishing")
-    print("NEW_MEMOIR_EPISODES " + json.dumps(completed, ensure_ascii=False))
+    print("NEW_MEMOIR_EPISODES " + json.dumps(completed, ensure_ascii=True))
     print("Add a concise Traditional Chinese topic title for each new date under memoir-YYYY-MM-DD in episode_titles.json, then run python build_feed.py and publish.")
 
 

@@ -18,6 +18,23 @@
     </image>
     <atom:link href="https://chanlaze.github.io/SciencePodcast/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>科學新知與科學回憶錄 2026-11-05｜微小尺度、糞便混凝土、月球基地、震動助眠與泥土DNA</title>
+      <description>1. 我們原來已正在探索比原子核還要小百萬倍的微小尺度。 — https://www.youtube.com/watch?v=Wxx8uC-NA94
+2. 石屎原來真係可以加屎，而且仲會硬淨啲。 — https://www.youtube.com/watch?v=vNY4icJRJlI
+3. 輕快靚正地興建月球基地，要用上甚麼材料？磁性組件砌出足球形狀可能是答案。 — https://www.youtube.com/watch?v=R0RaPtnwKkA
+4. 一邊震一邊瞓，可以幫助腦部排毒減輕腦退化？ — https://www.youtube.com/watch?v=0-EoJwL8AnY
+考古現場土壤樣本中的DNA留下古人類生活證據。泥土DNA考古時代來臨。 — https://www.youtube.com/watch?v=1ZpZ3kh3Pyw</description>
+      <link>https://chanlaze.github.io/SciencePodcast/</link>
+      <guid isPermaLink="false">science-frontier-2026-11-05</guid>
+      <pubDate>Thu, 05 Nov 2026 12:00:00 +0800</pubDate>
+      <enclosure url="https://chanlaze.github.io/SciencePodcast/podcasts/science-combined-2026-11-05.mp3" length="47480306" type="audio/mpeg" />
+      <itunes:author>Science Frontier (科學新知)</itunes:author>
+      <itunes:duration>4748</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <podcast:chapters url="https://chanlaze.github.io/SciencePodcast/chapters/combined-2026-11-05.json" type="application/json+chapters" />
+    </item>
+    <item>
       <title>科學新知與科學回憶錄 2026-10-29｜太空散熱、綠星、反物質、控糖與人類起源</title>
       <description>1. 衛星AI及數據中心，如何在太空散熱原來大有學問。 — https://www.youtube.com/watch?v=9su-k5wjRVk
 2. 為何夜空中幾乎不見有綠色星星？新發現的綠色白矮星又來自甚麼原因？ — https://www.youtube.com/watch?v=Y0rpX-BC8e0

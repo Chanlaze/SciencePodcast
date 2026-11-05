@@ -79,7 +79,7 @@ def main() -> None:
         date: [parts[number]["title"] for number in range(1, 5)]
         for date, parts in new_shows.items()
     }
-    print("NEW_COMPLETE_EPISODES " + json.dumps(summary, ensure_ascii=False))
+    print("NEW_COMPLETE_EPISODES " + json.dumps(summary, ensure_ascii=True))
     print("Add a short four-topic title for each new date to episode_titles.json, then run python build_feed.py and publish the changed files.")
 
 
