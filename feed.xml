@@ -18,6 +18,23 @@
     </image>
     <atom:link href="https://chanlaze.github.io/SciencePodcast/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>科學新知與科學回憶錄 2026-11-19｜黑洞與AI、冬季冷暖、細胞與腦組織、太空核爆及Nvidia命名</title>
+      <description>1. 科學大師來港演講黑洞專題時，發覺自己身處AI黑洞。 — https://www.youtube.com/watch?v=SLiH9CpN_Bs
+2. 北極寒流遇上厄爾尼諾，這個冬天是寒是暖難以估計。 — https://www.youtube.com/watch?v=8Y2O9hEx0d0
+3. 日本科學家造出同時帶有動植物完整基因的細胞。人腦活體組織研究何以艱難？ — https://www.youtube.com/watch?v=tKQ_oKJ_DGM
+4. 在太空引爆核彈可使98%衞星失靈？ — https://www.youtube.com/watch?v=km7tzLOv8jk
+Nvidia旗下產品原來都以傑出科學貢獻者命名，跟大家一一細數。[同場加映：啤梨哥瘦身現身說法。] — https://www.youtube.com/watch?v=eiMmi7_evto</description>
+      <link>https://chanlaze.github.io/SciencePodcast/</link>
+      <guid isPermaLink="false">science-frontier-2026-11-19</guid>
+      <pubDate>Thu, 19 Nov 2026 12:00:00 +0800</pubDate>
+      <enclosure url="https://chanlaze.github.io/SciencePodcast/podcasts/science-combined-2026-11-19.mp3" length="53600291" type="audio/mpeg" />
+      <itunes:author>Science Frontier (科學新知)</itunes:author>
+      <itunes:duration>5360</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <podcast:chapters url="https://chanlaze.github.io/SciencePodcast/chapters/combined-2026-11-19.json" type="application/json+chapters" />
+    </item>
+    <item>
       <title>科學新知與科學回憶錄 2026-11-12｜太空組裝與GPS、超低溫、電網脈衝、沙漠人居與火星水跡</title>
       <description>1. 太空機械人自動組裝衞星部件測試成功。 Artemis 2火箭的威力竟令GPS帶來誤差。 — https://www.youtube.com/watch?v=GPgj0Lgdw24
 2. 中國於天宮實驗室造出人類文明最低溫度紀錄，比宇宙還要冷。 — https://www.youtube.com/watch?v=zLziRii97uo
